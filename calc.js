@@ -28,7 +28,7 @@ Calculator.prototype.saveNumber = function () {
 };
 
 Calculator.prototype.getNumberInput = function (input) {
-  if (this.operation == "compute" || "clear") {
+  if (this.operation == "compute") {
     this.input = "";
   }
   this.input += input;
@@ -90,17 +90,14 @@ console.log(btns, screen);
 
 btns.forEach((item) => {
   item.addEventListener("click", () => {
-    console.log(item.className);
     if (item.className.includes("numberBtn")) {
       calc.getNumberInput(item.innerHTML);
     }
     if (item.className.includes("operation")) {
       calc.compute(item.innerHTML);
-      console.log("calc");
     }
     if (item.className.includes("clearBtn")) {
       calc.clear();
-      console.log("clear");
     }
   });
 });
