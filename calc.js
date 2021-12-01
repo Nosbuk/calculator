@@ -47,16 +47,16 @@ Calculator.prototype.compute = function (sign) {
     this.saveNumber();
   }
   if (this.numsArr.length == 2) {
-    if (sign == "+") {
+    if (this.sign == "+") {
       this.add();
     }
-    if (sign == "-") {
+    if (this.sign == "-") {
       this.subtract();
     }
-    if (sign == "*") {
+    if (this.sign == "*") {
       this.multiply();
     }
-    if (sign == "/") {
+    if (this.sign == "/") {
       this.divide();
     }
     if (sign == "=") {
