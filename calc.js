@@ -20,6 +20,7 @@ Calculator.prototype.divide = function () {
 
 Calculator.prototype.updateDisplay = function () {
   screen.innerHTML = this.input;
+  screen.style.fontSize = `${45 - this.input.length * 0.8}px`;
 };
 
 Calculator.prototype.saveNumber = function () {
@@ -34,9 +35,11 @@ Calculator.prototype.getNumberInput = function (input) {
   if (this.input.includes(".") && input == ".") {
     input = "";
   }
-  this.input += input;
-  this.updateDisplay();
-  this.operation = "number";
+  if (screen.innerHTML.length < 30) {
+    this.input += input;
+    this.updateDisplay();
+    this.operation = "number";
+  }
 };
 
 Calculator.prototype.compute = function (sign) {
