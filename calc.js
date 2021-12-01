@@ -20,6 +20,12 @@ Calculator.prototype.divide = function () {
 
 Calculator.prototype.updateDisplay = function () {
   screen.innerHTML = this.input;
+  if (this.input == "Infinity") {
+    this.operation = "clear";
+    this.sign = "";
+    this.numsArr = [];
+    screen.innerHTML = "ERR";
+  }
   screen.style.fontSize = `${45 - this.input.length * 0.8}px`;
 };
 
