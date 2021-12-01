@@ -28,8 +28,11 @@ Calculator.prototype.saveNumber = function () {
 };
 
 Calculator.prototype.getNumberInput = function (input) {
-  if (this.operation == "compute") {
+  if (this.operation == "compute" || this.operation == "clear") {
     this.input = "";
+  }
+  if (this.input.includes(".") && input == ".") {
+    input = "";
   }
   this.input += input;
   this.updateDisplay();
@@ -40,7 +43,6 @@ Calculator.prototype.compute = function (sign) {
   if (this.sign != "=") {
     this.saveNumber();
   }
-  console.log(this.numsArr);
   if (this.numsArr.length == 2) {
     if (sign == "+") {
       this.add();
@@ -68,25 +70,22 @@ Calculator.prototype.compute = function (sign) {
         this.divide();
       }
     }
-    console.log(this.numsArr);
     this.input = `${this.numsArr[0]}`;
-    console.log(this.input);
     this.operation = "compute";
     this.updateDisplay();
   }
   this.sign = sign;
 };
 Calculator.prototype.clear = function () {
-  this.input = ".";
   this.operation = "clear";
   this.sign = "";
   this.numsArr = [];
   this.updateDisplay();
+  screen.innerHTML = "";
 };
 const calc = new Calculator();
 const btns = document.querySelectorAll(".calculator__button");
 const screen = document.querySelector(".calculator__screen");
-console.log(btns, screen);
 
 btns.forEach((item) => {
   item.addEventListener("click", () => {
@@ -101,3 +100,25 @@ btns.forEach((item) => {
     }
   });
 });
+
+document.addEventListener(
+  "keydown",
+  (event) => {
+    let key = event.key;
+    if (key == "Enter") {
+      key = "=";
+    }
+    let digitsArr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."];
+    let operationsArr = ["+", "-", "/", "*", "="];
+    if (digitsArr.includes(key)) {
+      calc.getNumberInput(key);
+    }
+    if (operationsArr.includes(key)) {
+      calc.compute(key);
+    }
+    if (key === "Backspace") {
+      calc.clear();
+    }
+  },
+  false
+);
