@@ -43,6 +43,7 @@
   font-size: 40px;
   border-radius: 20px;
   margin: 5px;
+  transition: color 200ms ease-out;
 }
 
 .calculator__button {

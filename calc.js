@@ -1,6 +1,6 @@
 function Calculator() {
-  this.input = "";
-  this.operation = "";
+  this.input = "0";
+  this.operation = "initial";
   this.sign = "";
   this.numsArr = [];
 }
@@ -20,13 +20,15 @@ Calculator.prototype.divide = function () {
 
 Calculator.prototype.updateDisplay = function () {
   screen.innerHTML = this.input;
-  if (this.input == "Infinity") {
+  if (this.input == "Infinity" || this.input == "NaN") {
     this.operation = "clear";
     this.sign = "";
     this.numsArr = [];
     screen.innerHTML = "ERR";
   }
-  screen.style.fontSize = `${45 - this.input.length * 0.8}px`;
+  screen.style.fontSize = `${40 - this.input.length * 0.8}px`;
+  screen.style.color = "transparent";
+  setTimeout(() => (screen.style.color = "initial"), 50);
 };
 
 Calculator.prototype.saveNumber = function () {
@@ -35,13 +37,13 @@ Calculator.prototype.saveNumber = function () {
 };
 
 Calculator.prototype.getNumberInput = function (input) {
-  if (this.operation == "compute" || this.operation == "clear") {
+  if (this.operation == "compute" || this.operation == "clear" || this.operation == "initial") {
     this.input = "";
   }
   if (this.input.includes(".") && input == ".") {
     input = "";
   }
-  if (screen.innerHTML.length < 30) {
+  if (screen.innerHTML.length < 20) {
     this.input += input;
     this.updateDisplay();
     this.operation = "number";
@@ -90,7 +92,8 @@ Calculator.prototype.clear = function () {
   this.sign = "";
   this.numsArr = [];
   this.updateDisplay();
-  screen.innerHTML = "";
+  screen.innerHTML = "0";
+  this.input = "0";
 };
 const calc = new Calculator();
 const btns = document.querySelectorAll(".calculator__button");
